@@ -752,8 +752,6 @@ def build_cbd_inset_svg():
 REGION_ORDER=["Perth CBD","North Coast","Northern Suburbs","Swan Valley","Perth Hills",
               "South of River","Southern Suburbs","Peel Region","Nature"]
 def build_index_html():
-    map_svg=build_interactive_svg()
-    cbd_svg=build_cbd_inset_svg()
     # grouped list
     groups={}
     for p in PLACES:
@@ -777,6 +775,8 @@ def build_index_html():
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>My Perth Adventure Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <link rel="stylesheet" href="css/styles.css">
 </head><body>
 <header class="topbar">
@@ -787,17 +787,13 @@ def build_index_html():
 </header>
 <main class="layout">
   <div class="mapwrap">
-    <div class="mapcanvas" id="mapcanvas">{map_svg}</div>
+    <div class="mapcanvas" id="map"></div>
     <div class="mapctrl">
       <button id="zin" title="Zoom in">+</button>
       <button id="zout" title="Zoom out">−</button>
       <button id="zreset" title="Reset view">⌂</button>
     </div>
     <div class="legend">{legend}</div>
-    <div class="inset">
-      <h4>Perth CBD &amp; Burswood</h4>
-      {cbd_svg}
-    </div>
   </div>
   <aside class="sidebar" id="sidebar">
     <h2>All places</h2>
@@ -805,6 +801,9 @@ def build_index_html():
   </aside>
 </main>
 <footer><p>Home base: <strong>2 Zinnia Way, Willetton</strong> ⭐ · Built for exploring &amp; remembering Perth.</p></footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="js/data.js"></script>
 <script src="js/app.js"></script>
 </body></html>"""
     return html
